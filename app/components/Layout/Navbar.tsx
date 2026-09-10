@@ -9,6 +9,11 @@ export default function Navbar() {
   const links = [
     { href: "/", label: "Home" },
     { href: "/fixtures", label: "Fixtures" },
+    { href: "/teams", label: "Teams" },
+    { href: "/gallery", label: "Gallery" },
+    { href: "/history", label: "History" },
+    { href: "/membership", label: "Membership" },
+    { href: "/sponsors", label: "Sponsors" },
     { href: "/about", label: "About" },
     { href: "/donations", label: "Donations" },
   ];
