@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/Layout/Navbar";
+import WhatsAppButton from "./components/Layout/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "Retreat RFC",
@@ -20,6 +21,7 @@ export default function RootLayout({
         <footer className="bg-black border-t border-purple-700 text-center py-6 text-sm text-gray-400">
           © {new Date().getFullYear()} Retreat RFC. All rights reserved.
         </footer>
+        <WhatsAppButton />
       </body>
     </html>
   );
