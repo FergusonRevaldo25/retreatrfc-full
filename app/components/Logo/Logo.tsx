@@ -6,9 +6,10 @@ export default function Logo() {
       <Image
         src="/retreatlogo.jpg"
         alt="Retreat RFC Logo"
-        width={40}
-        height={40}
-        className="rounded-full object-cover"
+        width={64}
+        height={64}
+        quality={100}
+        className="w-16 h-16 rounded-full object-cover border-2 border-purple-600"
       />
       <span className="text-2xl font-bold text-purple-500 tracking-wide">
         RETREAT<span className="text-white">RFC</span>

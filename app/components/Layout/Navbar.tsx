@@ -16,15 +16,17 @@ export default function Navbar() {
     { href: "/sponsors", label: "Sponsors" },
     { href: "/about", label: "About" },
     { href: "/donations", label: "Donations" },
+    { href: "/junior", label: "Junior Division" },
   ];
 
   return (
     <header className="bg-black border-b border-purple-700 sticky top-0 z-50">
-      <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
+      <nav className="max-w-6xl mx-auto flex items-center justify-between gap-8 px-6 py-4">
         <Logo />
 
         {/* Desktop links */}
-        <ul className="hidden md:flex gap-6 text-sm font-medium uppercase tracking-wide">
+        <ul className="hidden md:flex gap-4 text-xs lg:text-sm font-medium uppercase tracking-wide">
+          {" "}
           {links.map((link) => (
             <li key={link.href}>
               <a

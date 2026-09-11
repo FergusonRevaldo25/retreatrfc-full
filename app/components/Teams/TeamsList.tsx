@@ -23,12 +23,17 @@ export default function TeamsList() {
       {teams.map((team) => (
         <div
           key={team.name}
-          className="border border-purple-800 rounded-lg p-6 bg-neutral-900"
+          className="border border-purple-800 rounded-lg overflow-hidden bg-neutral-900"
         >
-          <h3 className="text-purple-400 font-bold text-xl mb-2">
-            {team.name}
-          </h3>
-          <p className="text-gray-300 text-sm">{team.description}</p>
+          <div className="aspect-video bg-black flex items-center justify-center text-gray-500 text-sm border-b border-purple-800">
+            Team Photo
+          </div>
+          <div className="p-6">
+            <h3 className="text-purple-400 font-bold text-xl mb-2">
+              {team.name}
+            </h3>
+            <p className="text-gray-300 text-sm">{team.description}</p>
+          </div>
         </div>
       ))}
     </div>
