@@ -1,11 +1,39 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
 export default function PlayerSpotlight() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {
+        // Autoplay was blocked by the browser
+      });
+    }
+  }, []);
+
   return (
     <section className="max-w-4xl mx-auto px-6 py-16">
-      <div className="border border-purple-700 rounded-lg bg-neutral-900 overflow-hidden md:flex">
-        <div className="md:w-1/3 aspect-square md:aspect-auto bg-black flex items-center justify-center text-gray-500 text-sm border-b md:border-b-0 md:border-r border-purple-800">
-          Player Photo
+      <div className="flex flex-col md:flex-row gap-6">
+        {/* Video box */}
+        <div className="md:w-1/3 aspect-square border border-purple-700 rounded-lg overflow-hidden bg-neutral-900">
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="w-full h-full object-cover"
+          >
+            <source src="/blip.mp4" type="video/mp4" />
+          </video>
         </div>
-        <div className="p-8 flex-1">
+
+        {/* Info box */}
+        <div className="flex-1 border border-purple-700 rounded-lg bg-neutral-900 p-8">
           <p className="text-purple-500 uppercase text-xs font-bold tracking-wide mb-2">
             Player of the Month
           </p>
