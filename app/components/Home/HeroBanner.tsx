@@ -63,10 +63,7 @@ export default function HeroBanner() {
       <div className="absolute inset-0 bg-black/70" />
 
       {/* Content */}
-      <div className="relative z-10">
-        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight">
-          RETREAT <span className="text-purple-500">RFC</span>
-        </h1>
+      <div className="relative z-10 mt-32 md:mt-48">
         <p className="mt-4 text-lg text-gray-300 max-w-xl mx-auto">
           Proud. Passionate. Purple and White. Join us on and off the pitch.
         </p>
