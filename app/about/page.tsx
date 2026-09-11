@@ -1,5 +1,7 @@
 import AboutContent from "../components/About/AboutContent";
 
+export const dynamic = "force-dynamic";
+
 export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-16">

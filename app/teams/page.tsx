@@ -1,5 +1,7 @@
 import TeamsList from "../components/Teams/TeamsList";
 
+export const dynamic = "force-dynamic";
+
 export default function TeamsPage() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-16">

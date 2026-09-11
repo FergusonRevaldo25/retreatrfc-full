@@ -1,5 +1,7 @@
 import ShopGrid from "../components/Shop/ShopGrid";
 
+export const dynamic = "force-dynamic";
+
 export default function ShopPage() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">

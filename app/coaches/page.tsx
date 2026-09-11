@@ -1,5 +1,7 @@
 import CoachesList from "../components/Coaches/CoachesList";
 
+export const dynamic = "force-dynamic";
+
 export default function CoachesPage() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-16">

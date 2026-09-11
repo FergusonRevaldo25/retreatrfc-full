@@ -1,33 +1,48 @@
-const products = [
-  { name: "Player Jersey", price: "R650" },
-  { name: "Supporter Jersey", price: "R450" },
-  { name: "Cap", price: "R150" },
-  { name: "Bucket Hat", price: "R180" },
-  { name: "Beanie", price: "R150" },
-  { name: "Jacket", price: "R750" },
-  { name: "Tracksuit", price: "R900" },
-  { name: "Training Tee", price: "R250" },
-];
+import { neon } from "@neondatabase/serverless";
 
-export default function ShopGrid() {
+type ShopItem = {
+  id: number;
+  name: string;
+  price: string;
+  photo_url: string | null;
+};
+
+export default async function ShopGrid() {
+  const sql = neon(process.env.DATABASE_URL as string);
+  const items = (await sql`SELECT * FROM shop_items ORDER BY id ASC`) as unknown as ShopItem[];
+
   return (
     <div className="space-y-12">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <div
-            key={product.name}
-            className="border border-purple-800 rounded-lg overflow-hidden bg-neutral-900"
-          >
-            <div className="aspect-square bg-black flex items-center justify-center text-gray-500 text-sm border-b border-purple-800">
-              Photo
+      {items.length === 0 ? (
+        <p className="text-gray-500 text-sm text-center">
+          No products listed yet — check back soon.
+        </p>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="border border-purple-800 rounded-lg overflow-hidden bg-neutral-900"
+            >
+              <div className="aspect-square bg-black flex items-center justify-center text-gray-500 text-sm border-b border-purple-800 overflow-hidden">
+                {item.photo_url ? (
+                  <img
+                    src={item.photo_url}
+                    alt={item.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  "Photo"
+                )}
+              </div>
+              <div className="p-4 text-center">
+                <p className="font-semibold text-white">{item.name}</p>
+                <p className="text-purple-400 text-sm mt-1">{item.price}</p>
+              </div>
             </div>
-            <div className="p-4 text-center">
-              <p className="font-semibold text-white">{product.name}</p>
-              <p className="text-purple-400 text-sm mt-1">{product.price}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       <div className="border border-purple-700 rounded-lg p-8 bg-neutral-900 text-center">
         <h3 className="text-purple-400 font-bold text-xl mb-2">

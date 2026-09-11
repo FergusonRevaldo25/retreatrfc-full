@@ -1,5 +1,7 @@
 import FixtureList from "../components/Fixtures/FixtureList";
 
+export const dynamic = "force-dynamic";
+
 export default function FixturesPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-16">

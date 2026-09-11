@@ -2,7 +2,17 @@
 
 import { useEffect, useRef } from "react";
 
-export default function HistoryContent() {
+type HistoryContentProps = {
+  founding: string;
+  paragraph1: string;
+  paragraph2: string;
+};
+
+export default function HistoryContent({
+  founding,
+  paragraph1,
+  paragraph2,
+}: HistoryContentProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -33,24 +43,12 @@ export default function HistoryContent() {
 
       <div className="flex items-center gap-4">
         <span className="text-purple-500 font-bold text-3xl">1898</span>
-        <p>
-          Retreat RFC was founded, becoming one of the community's earliest
-          rugby clubs and a home for local players for generations.
-        </p>
+        <p>{founding}</p>
       </div>
 
-      <p>
-        Over the decades, the club has grown from a small group of local players
-        into a multi-team organisation spanning senior, women's, and veterans
-        rugby. Through it all, the values of the club have stayed the same:
-        community, resilience, and pride in the purple and black.
-      </p>
+      <p>{paragraph1}</p>
 
-      <p>
-        Today, Retreat RFC continues that legacy — welcoming new players,
-        supporting local youth through our junior programme, and building a club
-        that the community can be proud of both on and off the pitch.
-      </p>
+      <p>{paragraph2}</p>
 
       <div className="border-t border-purple-800 pt-6">
         <h3 className="text-purple-400 font-bold text-lg mb-2">
