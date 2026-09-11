@@ -22,7 +22,7 @@
           RETREAT <span className="text-purple-500">RFC</span>
         </h1>
         <p className="mt-4 text-lg text-gray-300 max-w-xl mx-auto">
-          Proud. Passionate. Purple and Black. Join us on and off the pitch.
+          Proud. Passionate. Purple and White. Join us on and off the pitch.
         </p>
         <div className="mt-8 flex justify-center gap-4">
           <a
