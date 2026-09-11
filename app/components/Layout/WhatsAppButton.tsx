@@ -10,7 +10,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with Retreat RFC on WhatsApp"
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-green-500 hover:bg-green-400 transition-colors shadow-lg shadow-black/50"
+      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-purple-600 hover:bg-purple-500 border-2 border-black transition-colors shadow-lg shadow-purple-900/50"
     >
       <svg
         viewBox="0 0 32 32"
