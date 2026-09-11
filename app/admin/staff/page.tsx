@@ -1,6 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 import { put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
+import AdminNav from "../../components/Admin/AdminNav";
 
 export const dynamic = "force-dynamic";
 
@@ -72,13 +73,13 @@ export default async function AdminStaffPage() {
   const staff = (await sql`SELECT * FROM staff ORDER BY category ASC, id ASC`) as unknown as StaffMember[];
 
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-12">
-      <div className="max-w-4xl mx-auto space-y-10">
+    <div className="min-h-screen bg-black text-white">
+      <AdminNav active="/admin/staff" />
+      <div className="max-w-4xl mx-auto px-6 py-10 space-y-10">
         <h1 className="text-3xl font-bold text-purple-500">
           Manage Coaches &amp; Exco
         </h1>
 
-        {/* Add new */}
         <form
           action={addStaff}
           className="bg-neutral-900 border border-purple-800 rounded-lg p-6 space-y-4"
@@ -121,7 +122,6 @@ export default async function AdminStaffPage() {
           </button>
         </form>
 
-        {/* Existing */}
         <div className="space-y-6">
           {staff.map((person) => (
             <div

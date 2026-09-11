@@ -1,5 +1,6 @@
 import { neon } from "@neondatabase/serverless";
 import { revalidatePath } from "next/cache";
+import AdminNav from "../../components/Admin/AdminNav";
 
 export const dynamic = "force-dynamic";
 
@@ -40,8 +41,9 @@ export default async function AdminContentPage() {
   const contentMap = Object.fromEntries(rows.map((r) => [r.key, r.value]));
 
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-12">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-black text-white">
+      <AdminNav active="/admin/content" />
+      <div className="max-w-3xl mx-auto px-6 py-10">
         <h1 className="text-3xl font-bold text-purple-500 mb-8">
           Edit Site Content
         </h1>

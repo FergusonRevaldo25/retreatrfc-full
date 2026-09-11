@@ -1,5 +1,6 @@
 import { neon } from "@neondatabase/serverless";
 import { revalidatePath } from "next/cache";
+import AdminNav from "../../components/Admin/AdminNav";
 
 export const dynamic = "force-dynamic";
 
@@ -43,14 +44,6 @@ async function deleteFixture(formData: FormData) {
   revalidatePath("/fixtures");
 }
 
-async function logout() {
-  "use server";
-  const { cookies } = await import("next/headers");
-  const { redirect } = await import("next/navigation");
-  cookies().delete("admin_auth");
-  redirect("/admin");
-}
-
 type Fixture = {
   id: number;
   match_date: string;
@@ -65,23 +58,13 @@ export default async function AdminFixturesPage() {
   const fixtures = (await sql`SELECT * FROM fixtures ORDER BY match_date ASC`) as unknown as Fixture[];
 
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-12">
-      <div className="max-w-3xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-purple-500">
-            Manage Fixtures
-          </h1>
-          <form action={logout}>
-            <button
-              type="submit"
-              className="text-sm text-gray-400 hover:text-white transition-colors"
-            >
-              Log Out
-            </button>
-          </form>
-        </div>
+    <div className="min-h-screen bg-black text-white">
+      <AdminNav active="/admin/fixtures" />
+      <div className="max-w-3xl mx-auto px-6 py-10">
+        <h1 className="text-3xl font-bold text-purple-500 mb-8">
+          Manage Fixtures
+        </h1>
 
-        {/* Add new fixture */}
         <form
           action={addFixture}
           className="bg-neutral-900 border border-purple-800 rounded-lg p-6 space-y-4 mb-10"
@@ -114,7 +97,6 @@ export default async function AdminFixturesPage() {
           </button>
         </form>
 
-        {/* Existing fixtures */}
         <div className="space-y-4">
           {fixtures.length === 0 && (
             <p className="text-gray-500 text-sm">No fixtures yet.</p>
@@ -145,7 +127,6 @@ export default async function AdminFixturesPage() {
                 </form>
               </div>
 
-              {/* Score entry */}
               <form
                 action={updateScore}
                 className="flex items-center gap-3 text-sm"

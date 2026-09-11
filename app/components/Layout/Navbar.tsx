@@ -41,7 +41,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="bg-black border-b border-purple-700 sticky top-0 z-50">
+    <header
+      className="relative border-b border-purple-700 sticky top-0 z-50 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url('/ban.jpg')` }}
+    >
       <nav className="max-w-6xl mx-auto flex items-center justify-between gap-8 px-6 py-4">
         <Logo />
 

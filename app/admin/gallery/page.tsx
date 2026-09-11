@@ -1,6 +1,8 @@
 import { neon } from "@neondatabase/serverless";
 import { put, del } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
+import AdminNav from "../../components/Admin/AdminNav";
+import FileUploadInput from "../../components/Admin/FileUploadInput";
 
 export const dynamic = "force-dynamic";
 
@@ -41,28 +43,18 @@ export default async function AdminGalleryPage() {
   const images = (await sql`SELECT * FROM gallery_images ORDER BY created_at DESC`) as unknown as GalleryImage[];
 
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-12">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-black text-white">
+      <AdminNav active="/admin/gallery" />
+      <div className="max-w-5xl mx-auto px-6 py-10">
         <h1 className="text-3xl font-bold text-purple-500 mb-8">
           Manage Gallery
         </h1>
 
-        {/* Upload form */}
         <form
           action={uploadImage}
           className="mb-10 flex flex-wrap items-center gap-4 bg-neutral-900 border border-purple-800 rounded-lg p-6"
         >
-          <label className="flex items-center gap-2 border-2 border-dashed border-purple-700 rounded-lg px-6 py-4 cursor-pointer hover:bg-black transition-colors">
-            <span className="text-2xl text-purple-500 leading-none">+</span>
-            <span className="text-sm text-gray-400">Choose Photo</span>
-            <input
-              type="file"
-              name="file"
-              accept="image/*"
-              required
-              className="hidden"
-            />
-          </label>
+          <FileUploadInput name="file" required />
           <button
             type="submit"
             className="bg-purple-600 hover:bg-purple-500 transition-colors px-6 py-3 rounded-md font-semibold"
@@ -71,7 +63,6 @@ export default async function AdminGalleryPage() {
           </button>
         </form>
 
-        {/* Existing photos */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {images.length === 0 && (
             <p className="text-gray-500 text-sm col-span-full">

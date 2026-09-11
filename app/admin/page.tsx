@@ -11,9 +11,9 @@ async function login(formData: FormData) {
       secure: true,
       sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 1 week
+      maxAge: 60 * 60 * 24 * 30, // 30 days
     });
-    redirect("/admin/fixtures");
+    redirect("/admin/dashboard");
   }
 
   redirect("/admin?error=1");
