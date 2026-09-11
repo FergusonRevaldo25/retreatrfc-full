@@ -1,6 +1,36 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
 export default function HistoryContent() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {
+        // Autoplay was blocked by the browser
+      });
+    }
+  }, []);
+
   return (
     <div className="space-y-8 text-gray-300 leading-relaxed">
+      {/* History video */}
+      <div className="aspect-video border border-purple-700 rounded-lg overflow-hidden bg-neutral-900">
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover"
+        >
+          <source src="/motive.mp4" type="video/mp4" />
+        </video>
+      </div>
+
       <div className="flex items-center gap-4">
         <span className="text-purple-500 font-bold text-3xl">1898</span>
         <p>
