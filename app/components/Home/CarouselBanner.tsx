@@ -41,9 +41,17 @@ export default function CarouselBanner() {
   };
 
   return (
-    <section className="relative bg-black py-16 overflow-hidden">
+    <section className="relative py-16 overflow-hidden">
+      {/* Background image */}
       <div
-        className="relative max-w-5xl mx-auto h-[380px] flex items-center justify-center"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/carouselbg.jpg')" }}
+      />
+      {/* Dark overlay so cards stay readable */}
+      <div className="absolute inset-0 bg-black/70" />
+
+      <div
+        className="relative z-10 max-w-5xl mx-auto h-[380px] flex items-center justify-center"
         style={{ perspective: "1200px" }}
       >
         {slides.map((slide, i) => {

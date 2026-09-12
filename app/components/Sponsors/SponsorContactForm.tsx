@@ -1,4 +1,6 @@
 import { neon } from "@neondatabase/serverless";
+import { redirect } from "next/navigation";
+import { sendEmailNotification } from "../../lib/notifications";
 
 async function submitInquiry(formData: FormData) {
   "use server";
@@ -9,6 +11,17 @@ async function submitInquiry(formData: FormData) {
 
   const sql = neon(process.env.DATABASE_URL as string);
   await sql`INSERT INTO sponsor_inquiries (name, email, phone, message) VALUES (${name}, ${email}, ${phone}, ${message})`;
+
+  await sendEmailNotification(
+    `New Sponsor Inquiry: ${name}`,
+    `
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
+      <p><strong>Message:</strong> ${message || "None"}</p>
+    `
+  );
+
+  redirect("/sponsors?success=1");
 }
 
 export default function SponsorContactForm({

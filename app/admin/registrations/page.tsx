@@ -8,7 +8,8 @@ type Registration = {
   id: number;
   full_name: string;
   category: string;
-  id_or_dob: string;
+  id_number: string | null;
+  date_of_birth: string | null;
   email: string;
   phone: string;
   emergency_contact: string;
@@ -71,7 +72,13 @@ export default async function AdminRegistrationsPage() {
                 </form>
               </div>
               <div className="text-sm text-gray-300 space-y-1 mt-3">
-                <p>ID/DOB: {r.id_or_dob}</p>
+                <p>ID Number: {r.id_number || "Not provided"}</p>
+                <p>
+                  Date of Birth:{" "}
+                  {r.date_of_birth
+                    ? new Date(r.date_of_birth).toLocaleDateString()
+                    : "Not provided"}
+                </p>
                 <p>Email: {r.email}</p>
                 <p>Phone: {r.phone}</p>
                 <p>Emergency contact: {r.emergency_contact}</p>

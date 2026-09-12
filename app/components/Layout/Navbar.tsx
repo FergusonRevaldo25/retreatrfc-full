@@ -19,7 +19,6 @@ const moreLinks = [
   { href: "/junior", label: "Junior Division" },
   { href: "/coaches", label: "Coaches & Exco" },
   { href: "/shop", label: "Shop" },
-  { href: "/news", label: "News" },
 ];
 
 const allLinks = [...primaryLinks, ...moreLinks];
@@ -41,21 +40,23 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header
-      className="relative border-b border-purple-700 sticky top-0 z-50 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url('/ban.jpg')` }}
-    >
-      <nav className="max-w-6xl mx-auto flex items-center justify-between gap-8 px-6 py-4">
+    <header className="relative border-b border-purple-700 sticky top-0 z-50">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/ban.jpg')" }}
+      />
+      {/* Dark overlay so logo/links stay readable */}
+      <div className="absolute inset-0 bg-black/80" />
+
+      <nav className="relative z-10 max-w-6xl mx-auto flex items-center justify-between gap-8 px-6 py-4">
         <Logo />
 
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-5 text-sm font-medium uppercase tracking-wide">
           {primaryLinks.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
-                className="hover:text-purple-400 transition-colors"
-              >
+              <a href={link.href} className="hover:text-purple-400 transition-colors">
                 {link.label}
               </a>
             </li>
@@ -74,12 +75,7 @@ export default function Navbar() {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
 
@@ -99,6 +95,16 @@ export default function Navbar() {
               </ul>
             )}
           </li>
+
+          {/* Register button — styled distinctly from the plain nav links */}
+          <li>
+            <a
+              href="/register"
+              className="bg-purple-600 hover:bg-purple-500 transition-colors px-4 py-2 rounded-md font-semibold normal-case tracking-normal text-white"
+            >
+              Register
+            </a>
+          </li>
         </ul>
 
         {/* Mobile hamburger button */}
@@ -108,52 +114,41 @@ export default function Navbar() {
           aria-label="Toggle menu"
         >
           {open ? (
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}
         </button>
       </nav>
 
-      {/* Mobile menu dropdown — shows everything flat, no "More" grouping needed here */}
+      {/* Mobile menu dropdown */}
       {open && (
-        <ul className="md:hidden flex flex-col gap-4 px-6 pb-6 text-sm font-medium uppercase tracking-wide border-t border-purple-800 pt-4">
-          {allLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="block hover:text-purple-400 transition-colors"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="relative z-10 md:hidden px-6 pb-6 border-t border-purple-800 pt-4">
+          <ul className="flex flex-col gap-4 text-sm font-medium uppercase tracking-wide mb-4">
+            {allLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="block hover:text-purple-400 transition-colors"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a
+            href="/register"
+            onClick={() => setOpen(false)}
+            className="block text-center bg-purple-600 hover:bg-purple-500 transition-colors px-4 py-3 rounded-md font-semibold text-white"
+          >
+            Register
+          </a>
+        </div>
       )}
     </header>
   );

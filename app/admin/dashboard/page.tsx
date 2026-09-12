@@ -59,6 +59,12 @@ const cards = [
     countKey: null,
   },
   {
+    href: "/admin/announcement",
+    label: "Homepage Announcement",
+    description: "Edit the news banner between the carousel and hero",
+    countKey: null,
+  },
+  {
     href: "/admin/registrations",
     label: "Registrations",
     description: "View new player sign-ups",

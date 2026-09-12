@@ -4,6 +4,8 @@ import HeroBanner from "./components/Home/HeroBanner";
 import PlayerSpotlight from "./components/Home/PlayerSpotlight";
 import CarouselBanner from "./components/Home/CarouselBanner";
 import TickerBanner from "./components/Home/TickerBanner";
+import LatestNews from "./components/Home/LatestNews";
+import FeaturedAnnouncement from "./components/Home/FeaturedAnnouncement";
 
 export const dynamic = "force-dynamic";
 
@@ -31,8 +33,9 @@ export default async function HomePage() {
   };
 
   return (
-    <div className="bg-black text-white">
+    <div>
       <CarouselBanner />
+      <FeaturedAnnouncement />
       <HeroBanner />
       <TickerBanner />
       <PlayerSpotlight
@@ -44,6 +47,7 @@ export default async function HomePage() {
         mediaType={spotlight.media_type}
       />
       <TickerBanner />
+      <LatestNews />
       <Header />
     </div>
   );

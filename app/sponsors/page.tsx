@@ -1,10 +1,15 @@
 import { neon } from "@neondatabase/serverless";
 import SponsorsList from "../components/Sponsors/SponsorsList";
 import SponsorContactForm from "../components/Sponsors/SponsorContactForm";
+import Banner from "../components/Shared/Banner";
 
 export const dynamic = "force-dynamic";
 
-export default async function SponsorsPage() {
+export default async function SponsorsPage({
+  searchParams,
+}: {
+  searchParams: { success?: string };
+}) {
   const sql = neon(process.env.DATABASE_URL as string);
   const rows = (await sql`SELECT value FROM site_content WHERE key = 'sponsorship_packet_url'`) as unknown as {
     value: string;
@@ -23,6 +28,16 @@ export default async function SponsorsPage() {
         </p>
         <SponsorsList />
       </div>
+
+      {searchParams?.success === "1" && (
+        <div className="max-w-md mx-auto">
+          <Banner
+            type="success"
+            message="Thanks! Your inquiry has been sent — we'll be in touch soon."
+          />
+        </div>
+      )}
+
       <SponsorContactForm packetUrl={packetUrl} />
     </div>
   );
