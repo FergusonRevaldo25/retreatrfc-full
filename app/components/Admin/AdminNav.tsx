@@ -15,6 +15,9 @@ const sections = [
   { href: "/admin/content", label: "Site Content" },
   { href: "/admin/staff", label: "Coaches & Exco" },
   { href: "/admin/shop", label: "Shop" },
+  { href: "/admin/sponsors", label: "Sponsors" },
+  { href: "/admin/spotlight", label: "Player Spotlight" },
+  { href: "/admin/registrations", label: "Registrations" },
 ];
 
 export default function AdminNav({ active }: { active?: string }) {

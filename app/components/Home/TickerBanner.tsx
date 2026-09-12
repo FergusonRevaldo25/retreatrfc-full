@@ -17,7 +17,7 @@ export default function TickerBanner() {
         {items.map((i) => (
           <span
             key={`b-${i}`}
-            className="mx-8 text-white font-bold tracking-widest text-lg whitespace-nowrap"
+            className="mx-8 text-purple-500 font-bold tracking-widest text-lg whitespace-nowrap"
           >
             REEVAS
           </span>

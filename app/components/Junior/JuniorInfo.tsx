@@ -43,7 +43,7 @@ export default function JuniorInfo() {
           Covers your child's season membership and club registration.
         </p>
         <a
-          href="/donations"
+          href="/register"
           className="inline-block mt-6 bg-purple-600 hover:bg-purple-500 transition-colors px-6 py-3 rounded-md font-semibold"
         >
           Register / Pay Now

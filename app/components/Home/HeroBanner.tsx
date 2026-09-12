@@ -65,25 +65,6 @@ export default function HeroBanner() {
       <div className="absolute inset-0 bg-black/70" />
 
       {/* Content */}
-      <div className="relative z-10 mt-32 md:mt-48">
-        <p className="mt-4 text-lg text-gray-300 max-w-xl mx-auto">
-          Proud. Passionate. Purple and White. Join us on and off the pitch.
-        </p>
-        <div className="mt-8 flex justify-center gap-4">
-          <a
-            href="/fixtures"
-            className="bg-purple-600 hover:bg-purple-500 transition-colors px-6 py-3 rounded-md font-semibold"
-          >
-            View Fixtures
-          </a>
-          <a
-            href="/donations"
-            className="border border-purple-600 hover:bg-purple-900 transition-colors px-6 py-3 rounded-md font-semibold"
-          >
-            Support Us
-          </a>
-        </div>
-      </div>
     </section>
   );
 }

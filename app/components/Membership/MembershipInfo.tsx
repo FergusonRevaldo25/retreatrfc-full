@@ -19,7 +19,7 @@ export default function MembershipInfo() {
           Covers your season membership and club registration.
         </p>
         <a
-          href="/donations"
+          href="/register"
           className="inline-block mt-6 bg-purple-600 hover:bg-purple-500 transition-colors px-6 py-3 rounded-md font-semibold"
         >
           Pay / Join Now
@@ -33,10 +33,7 @@ export default function MembershipInfo() {
         </h3>
         <ul className="space-y-3">
           {requirements.map((req) => (
-            <li
-              key={req}
-              className="flex items-start gap-3 text-gray-300 text-sm"
-            >
+            <li key={req} className="flex items-start gap-3 text-gray-300 text-sm">
               <span className="text-purple-500 mt-0.5">✓</span>
               <span>{req}</span>
             </li>

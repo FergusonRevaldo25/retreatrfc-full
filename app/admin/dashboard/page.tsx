@@ -46,18 +46,38 @@ const cards = [
     description: "Manage club merchandise",
     countKey: "shop",
   },
+  {
+    href: "/admin/sponsors",
+    label: "Sponsors",
+    description: "Manage sponsorship packet and inquiries",
+    countKey: "sponsors",
+  },
+  {
+    href: "/admin/spotlight",
+    label: "Player Spotlight",
+    description: "Update the homepage Player of the Month",
+    countKey: null,
+  },
+  {
+    href: "/admin/registrations",
+    label: "Registrations",
+    description: "View new player sign-ups",
+    countKey: "registrations",
+  },
 ];
 
 export default async function AdminDashboardPage() {
   const sql = neon(process.env.DATABASE_URL as string);
 
-  const [fixtures, gallery, teams, news, staff, shop] = await Promise.all([
+  const [fixtures, gallery, teams, news, staff, shop, sponsors, registrations] = await Promise.all([
     sql`SELECT COUNT(*) FROM fixtures`,
     sql`SELECT COUNT(*) FROM gallery_images`,
     sql`SELECT COUNT(*) FROM teams`,
     sql`SELECT COUNT(*) FROM news`,
     sql`SELECT COUNT(*) FROM staff`,
     sql`SELECT COUNT(*) FROM shop_items`,
+    sql`SELECT COUNT(*) FROM sponsor_inquiries`,
+    sql`SELECT COUNT(*) FROM registrations`,
   ]);
 
   const counts: Record<string, number> = {
@@ -67,6 +87,8 @@ export default async function AdminDashboardPage() {
     news: Number(news[0].count),
     staff: Number(staff[0].count),
     shop: Number(shop[0].count),
+    sponsors: Number(sponsors[0].count),
+    registrations: Number(registrations[0].count),
   };
 
   return (
