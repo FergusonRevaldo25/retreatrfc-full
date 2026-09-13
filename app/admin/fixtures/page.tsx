@@ -129,7 +129,7 @@ export default async function AdminFixturesPage() {
 
               <form
                 action={updateScore}
-                className="flex items-center gap-3 text-sm"
+                className="flex flex-wrap items-center gap-2 text-sm"
               >
                 <input type="hidden" name="id" value={f.id} />
                 <span className="text-gray-400">Retreat:</span>

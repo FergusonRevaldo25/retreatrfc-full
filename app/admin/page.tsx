@@ -25,12 +25,27 @@ export default function AdminLoginPage({
   searchParams: { error?: string };
 }) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black px-6">
+    <div className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/carouselbg.jpg')" }}
+      />
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/80" />
+
       <form
         action={login}
-        className="bg-neutral-900 border border-purple-700 rounded-lg p-8 w-full max-w-sm space-y-4"
+        className="relative z-10 bg-neutral-900 border border-purple-700 rounded-lg p-8 w-full max-w-sm space-y-4"
       >
-        <h1 className="text-2xl font-bold text-purple-500 text-center mb-2">
+        <div className="flex justify-center">
+          <img
+            src="/retreatlogo.jpg"
+            alt="Retreat RFC"
+            className="w-20 h-20 rounded-full object-cover border-2 border-purple-600"
+          />
+        </div>
+        <h1 className="text-2xl font-bold text-purple-500 text-center">
           Admin Login
         </h1>
         {searchParams?.error && (

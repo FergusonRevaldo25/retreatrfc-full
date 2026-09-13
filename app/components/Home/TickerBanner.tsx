@@ -1,4 +1,4 @@
-export default function TickerBanner() {
+export default function TickerBanner({ text = "REEVAS" }: { text?: string }) {
   const items = Array.from({ length: 8 }, (_, i) => i);
 
   return (
@@ -10,7 +10,7 @@ export default function TickerBanner() {
             key={`a-${i}`}
             className="mx-8 text-purple-500 font-bold tracking-widest text-lg whitespace-nowrap"
           >
-            REEVAS
+            {text}
           </span>
         ))}
         {/* Duplicate set — required for a seamless loop */}
@@ -19,7 +19,7 @@ export default function TickerBanner() {
             key={`b-${i}`}
             className="mx-8 text-purple-500 font-bold tracking-widest text-lg whitespace-nowrap"
           >
-            REEVAS
+            {text}
           </span>
         ))}
       </div>
