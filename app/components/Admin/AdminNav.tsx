@@ -15,6 +15,8 @@ const sections = [
   { href: "/admin/sponsors", label: "Sponsors" },
   { href: "/admin/spotlight", label: "Player Spotlight" },
   { href: "/admin/announcement", label: "Homepage Announcement" },
+  { href: "/admin/junior-teams", label: "Junior Teams" },
+  { href: "/admin/junior-fixtures", label: "Junior Fixtures" },
   { href: "/admin/registrations", label: "Registrations" },
 ];
 

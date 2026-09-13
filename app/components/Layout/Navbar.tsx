@@ -17,7 +17,6 @@ const moreLinks = [
   { href: "/about", label: "About" },
   { href: "/donations", label: "Donations" },
   { href: "/junior", label: "Junior Division" },
-  { href: "/coaches", label: "Coaches & Exco" },
   { href: "/shop", label: "Shop" },
   { href: "/news", label: "News" },
 ];
