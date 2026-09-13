@@ -6,19 +6,20 @@ import Logo from "../Logo/Logo";
 const primaryLinks = [
   { href: "/", label: "Home" },
   { href: "/fixtures", label: "Fixtures" },
+  { href: "/membership", label: "Membership" },
   { href: "/teams", label: "Teams" },
-  { href: "/gallery", label: "Gallery" },
+  { href: "/junior", label: "Junior Division" },
 ];
 
 const moreLinks = [
-  { href: "/history", label: "History" },
-  { href: "/membership", label: "Membership" },
-  { href: "/sponsors", label: "Sponsors" },
-  { href: "/about", label: "About" },
-  { href: "/donations", label: "Donations" },
-  { href: "/junior", label: "Junior Division" },
-  { href: "/shop", label: "Shop" },
   { href: "/news", label: "News" },
+  { href: "/shop", label: "Shop" },
+
+  { href: "/donations", label: "Donations" },
+  { href: "/sponsors", label: "Sponsors" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/history", label: "History" },
+  { href: "/about", label: "About" },
 ];
 
 const allLinks = [...primaryLinks, ...moreLinks];
@@ -56,7 +57,10 @@ export default function Navbar() {
         <ul className="hidden md:flex items-center gap-5 text-sm font-medium uppercase tracking-wide">
           {primaryLinks.map((link) => (
             <li key={link.href}>
-              <a href={link.href} className="hover:text-purple-400 transition-colors">
+              <a
+                href={link.href}
+                className="hover:text-purple-400 transition-colors"
+              >
                 {link.label}
               </a>
             </li>
@@ -75,7 +79,12 @@ export default function Navbar() {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
 
@@ -114,12 +123,32 @@ export default function Navbar() {
           aria-label="Toggle menu"
         >
           {open ? (
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           ) : (
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
           )}
         </button>
