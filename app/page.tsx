@@ -35,7 +35,9 @@ export default async function HomePage() {
   return (
     <div>
       <CarouselBanner />
+      <TickerBanner text="REEVA NEWS!!!" />
       <FeaturedAnnouncement />
+      <TickerBanner text="REEVA NEWS!!!" />
       <HeroBanner />
       <TickerBanner />
       <PlayerSpotlight
