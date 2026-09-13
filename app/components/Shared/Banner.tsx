@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function Banner({
   type,
@@ -10,9 +10,14 @@ export default function Banner({
   message: string;
 }) {
   const [visible, setVisible] = useState(true);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(false), 5000);
+    // Scroll the banner into view so the person doesn't have to
+    // manually scroll up after submitting a long form.
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    const timer = setTimeout(() => setVisible(false), 8000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -25,6 +30,7 @@ export default function Banner({
 
   return (
     <div
+      ref={ref}
       className={`border rounded-md px-6 py-4 mb-8 text-center transition-opacity duration-500 ${styles}`}
     >
       {message}

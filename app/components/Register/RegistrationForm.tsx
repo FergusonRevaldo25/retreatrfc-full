@@ -22,6 +22,7 @@ async function submitRegistration(formData: FormData) {
   const phone = formData.get("phone") as string;
   const emergencyContact = formData.get("emergency_contact") as string;
   const notes = formData.get("notes") as string;
+  const consentGiven = formData.get("consent") === "on";
 
   const dob = new Date(dateOfBirth);
   const age = calculateAge(dob);
@@ -32,8 +33,8 @@ async function submitRegistration(formData: FormData) {
 
   const sql = neon(process.env.DATABASE_URL as string);
   await sql`
-    INSERT INTO registrations (full_name, category, id_number, date_of_birth, email, phone, emergency_contact, notes)
-    VALUES (${fullName}, ${category}, ${idNumber}, ${dateOfBirth}, ${email}, ${phone}, ${emergencyContact}, ${notes})
+    INSERT INTO registrations (full_name, category, id_number, date_of_birth, email, phone, emergency_contact, notes, consent_given)
+    VALUES (${fullName}, ${category}, ${idNumber}, ${dateOfBirth}, ${email}, ${phone}, ${emergencyContact}, ${notes}, ${consentGiven})
   `;
 
   await sendEmailNotification(
@@ -46,6 +47,7 @@ async function submitRegistration(formData: FormData) {
       <p><strong>Phone:</strong> ${phone}</p>
       <p><strong>Emergency Contact:</strong> ${emergencyContact}</p>
       ${notes ? `<p><strong>Notes:</strong> ${notes}</p>` : ""}
+      <p><strong>Consent given:</strong> ${consentGiven ? "Yes" : "No"}</p>
     `
   );
 
@@ -124,6 +126,20 @@ export default function RegistrationForm() {
         rows={3}
         className="w-full bg-black border border-purple-700 rounded-md px-4 py-2 text-white"
       />
+
+      <label className="flex items-start gap-3 text-sm text-gray-300">
+        <input
+          type="checkbox"
+          name="consent"
+          required
+          className="mt-1"
+        />
+        <span>
+          I have read the notice above and consent to Retreat RFC storing
+          this information for registration purposes. If registering a
+          player under 18, I confirm I am their parent or legal guardian.
+        </span>
+      </label>
 
       <button
         type="submit"

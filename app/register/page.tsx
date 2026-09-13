@@ -32,6 +32,28 @@ export default function RegisterPage({
         />
       )}
 
+      {/* Privacy notice */}
+      <div className="border border-purple-800 rounded-lg bg-neutral-900 p-6 mb-8 text-sm text-gray-300 space-y-2">
+        <h2 className="text-purple-400 font-semibold text-base mb-2">
+          How we use your information
+        </h2>
+        <p>
+          The information you submit here (name, ID number or date of
+          birth, contact details, and emergency contact) is used only for
+          Retreat RFC club registration and administration — confirming
+          your spot, contacting you about matches and training, and safety
+          purposes. It is accessible only to club administrators and is not
+          shared with third parties.
+        </p>
+        <p>
+          <strong className="text-white">
+            If you are registering a player under 18,
+          </strong>{" "}
+          this form must be completed by a parent or legal guardian on
+          their behalf.
+        </p>
+      </div>
+
       <RegistrationForm />
     </div>
   );
