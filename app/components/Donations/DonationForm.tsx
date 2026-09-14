@@ -9,7 +9,7 @@ export default function DonationForm() {
     <form className="bg-neutral-900 border border-purple-800 rounded-lg p-8 space-y-6 text-left">
       <div>
         <label className="block text-sm font-medium mb-2 text-gray-300">
-          Donation Amount ($)
+          Donation Amount
         </label>
         <input
           type="number"
@@ -35,7 +35,7 @@ export default function DonationForm() {
         type="submit"
         className="w-full bg-purple-600 hover:bg-purple-500 transition-colors py-3 rounded-md font-semibold"
       >
-        Donate ${amount}
+        Donate R{amount}
       </button>
     </form>
   );
