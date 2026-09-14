@@ -26,7 +26,7 @@ export default function DonationForm() {
         </label>
         <input
           type="text"
-          placeholder="Jane Doe"
+          placeholder="Mark John"
           className="w-full bg-black border border-purple-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
       </div>

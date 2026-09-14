@@ -4,7 +4,7 @@ export default function Logo() {
   return (
     <a href="/" className="flex items-center gap-2">
       <Image
-        src="/retreatlogo.jpg"
+        src="/8klog.png"
         alt="Retreat RFC Logo"
         width={64}
         height={64}
