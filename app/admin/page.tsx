@@ -40,7 +40,7 @@ export default function AdminLoginPage({
       >
         <div className="flex justify-center">
           <img
-            src="/retreatlogo.jpg"
+            src="/8klog.png"
             alt="Retreat RFC"
             className="w-20 h-20 rounded-full object-cover border-2 border-purple-600"
           />
