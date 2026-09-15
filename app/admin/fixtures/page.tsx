@@ -78,7 +78,8 @@ type Fixture = {
 
 export default async function AdminFixturesPage() {
   const sql = neon(process.env.DATABASE_URL as string);
-  const fixtures = (await sql`SELECT * FROM fixtures ORDER BY match_date ASC`) as unknown as Fixture[];
+  const fixtures =
+    (await sql`SELECT * FROM fixtures ORDER BY match_date ASC`) as unknown as Fixture[];
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -92,9 +93,7 @@ export default async function AdminFixturesPage() {
           action={addFixture}
           className="bg-neutral-900 border border-purple-800 rounded-lg p-6 space-y-4 mb-10"
         >
-          <h2 className="text-lg font-semibold text-purple-400">
-            Add Fixture
-          </h2>
+          <h2 className="text-lg font-semibold text-purple-400">Add Fixture</h2>
           <div className="grid sm:grid-cols-2 gap-3">
             <input
               type="date"

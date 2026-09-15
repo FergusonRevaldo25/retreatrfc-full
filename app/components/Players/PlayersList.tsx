@@ -1,4 +1,5 @@
 import { neon } from "@neondatabase/serverless";
+import Image from "next/image";
 
 type Player = {
   id: number;
@@ -73,9 +74,12 @@ export default async function PlayersList() {
             {/* Photo */}
             <div className="relative z-10 h-full flex items-end justify-end pr-4 md:pr-10 shrink-0">
               {player.photo_url ? (
-                <img
+                <Image
                   src={player.photo_url}
                   alt={player.name}
+                  width={400}
+                  height={400}
+                  quality={90}
                   className="absolute bottom-0 right-4 md:right-10 h-[135%] w-auto max-w-none object-contain z-20 pointer-events-none"
                 />
               ) : (

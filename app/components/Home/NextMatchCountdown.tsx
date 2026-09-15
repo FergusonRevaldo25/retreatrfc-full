@@ -20,22 +20,37 @@ export default function NextMatchCountdown({
   opponent,
   isHome,
 }: {
-  matchDate: string;
+  matchDate: string | Date;
   matchTime: string | null;
   opponent: string;
   isHome: boolean;
 }) {
-  const target = new Date(`${matchDate}T${matchTime || "15:00"}`);
-  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(target));
+  const dateOnly =
+    matchDate instanceof Date
+      ? matchDate.toISOString().split("T")[0]
+      : String(matchDate).split("T")[0];
+  const timeOnly = matchTime ? matchTime.slice(0, 5) : "15:00";
+  const target = new Date(`${dateOnly}T${timeOnly}:00`);
+  const isValid = !isNaN(target.getTime());
+
+  const [timeLeft, setTimeLeft] =
+    useState<ReturnType<typeof getTimeLeft>>(null);
 
   useEffect(() => {
+    if (!isValid) return;
+    setTimeLeft(getTimeLeft(target));
     const interval = setInterval(() => {
       setTimeLeft(getTimeLeft(target));
     }, 1000);
     return () => clearInterval(interval);
-  }, [target]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dateOnly, timeOnly, isValid]);
 
-  if (!timeLeft) return null;
+  if (!isValid || !timeLeft) return null;
+
+  // Destructure right after the guard so TypeScript keeps the narrowed,
+  // non-null type all the way through the JSX below.
+  const { days, hours, minutes, seconds } = timeLeft;
 
   return (
     <section className="max-w-3xl mx-auto px-6 py-10">
@@ -49,10 +64,10 @@ export default function NextMatchCountdown({
         </h3>
         <div className="flex justify-center gap-4 md:gap-8">
           {[
-            { label: "Days", value: timeLeft.days },
-            { label: "Hours", value: timeLeft.hours },
-            { label: "Mins", value: timeLeft.minutes },
-            { label: "Secs", value: timeLeft.seconds },
+            { label: "Days", value: days },
+            { label: "Hours", value: hours },
+            { label: "Mins", value: minutes },
+            { label: "Secs", value: seconds },
           ].map((unit) => (
             <div key={unit.label} className="flex flex-col items-center">
               <span className="text-3xl md:text-5xl font-extrabold text-purple-500 tabular-nums">

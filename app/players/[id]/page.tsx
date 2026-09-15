@@ -1,5 +1,6 @@
 import { neon } from "@neondatabase/serverless";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import ShareButtons from "../../components/Shared/ShareButtons";
 
 export const dynamic = "force-dynamic";
@@ -23,7 +24,8 @@ export default async function PlayerProfilePage({
   params: { id: string };
 }) {
   const sql = neon(process.env.DATABASE_URL as string);
-  const rows = (await sql`SELECT * FROM players WHERE id = ${params.id}`) as unknown as Player[];
+  const rows =
+    (await sql`SELECT * FROM players WHERE id = ${params.id}`) as unknown as Player[];
   const player = rows[0];
 
   if (!player) {
@@ -33,12 +35,21 @@ export default async function PlayerProfilePage({
   return (
     <div className="max-w-2xl mx-auto px-6 py-16">
       <div className="border border-purple-700 rounded-xl overflow-hidden bg-neutral-900">
-        <div className="aspect-square bg-black flex items-center justify-center text-gray-500">
+        <div
+          className="aspect-square flex items-center justify-center text-gray-500 relative"
+          style={{
+            backgroundImage: "url('/ban.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
           {player.photo_url ? (
-            <img
+            <Image
               src={player.photo_url}
               alt={player.name}
-              className="w-full h-full object-cover"
+              fill
+              quality={90}
+              className="object-contain"
             />
           ) : (
             "Photo"
