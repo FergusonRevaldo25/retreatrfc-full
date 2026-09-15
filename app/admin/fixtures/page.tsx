@@ -1,4 +1,5 @@
 import { neon } from "@neondatabase/serverless";
+import { put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import AdminNav from "../../components/Admin/AdminNav";
 
@@ -8,13 +9,15 @@ async function addFixture(formData: FormData) {
   "use server";
   const sql = neon(process.env.DATABASE_URL as string);
   const matchDate = formData.get("match_date") as string;
+  const matchTime = formData.get("match_time") as string;
   const opponent = formData.get("opponent") as string;
   const isHome = formData.get("is_home") === "on";
 
-  await sql`INSERT INTO fixtures (match_date, opponent, is_home) VALUES (${matchDate}, ${opponent}, ${isHome})`;
+  await sql`INSERT INTO fixtures (match_date, match_time, opponent, is_home) VALUES (${matchDate}, ${matchTime || null}, ${opponent}, ${isHome})`;
 
   revalidatePath("/admin/fixtures");
   revalidatePath("/fixtures");
+  revalidatePath("/");
 }
 
 async function updateScore(formData: FormData) {
@@ -33,6 +36,23 @@ async function updateScore(formData: FormData) {
   revalidatePath("/fixtures");
 }
 
+async function uploadHighlight(formData: FormData) {
+  "use server";
+  const id = formData.get("id") as string;
+  const file = formData.get("highlight") as File;
+  if (!file || file.size === 0) return;
+
+  const blob = await put(`highlights/${Date.now()}-${file.name}`, file, {
+    access: "public",
+  });
+
+  const sql = neon(process.env.DATABASE_URL as string);
+  await sql`UPDATE fixtures SET highlight_url = ${blob.url} WHERE id = ${id}`;
+
+  revalidatePath("/admin/fixtures");
+  revalidatePath("/fixtures");
+}
+
 async function deleteFixture(formData: FormData) {
   "use server";
   const sql = neon(process.env.DATABASE_URL as string);
@@ -42,15 +62,18 @@ async function deleteFixture(formData: FormData) {
 
   revalidatePath("/admin/fixtures");
   revalidatePath("/fixtures");
+  revalidatePath("/");
 }
 
 type Fixture = {
   id: number;
   match_date: string;
+  match_time: string | null;
   opponent: string;
   is_home: boolean;
   home_score: number | null;
   away_score: number | null;
+  highlight_url: string | null;
 };
 
 export default async function AdminFixturesPage() {
@@ -72,12 +95,19 @@ export default async function AdminFixturesPage() {
           <h2 className="text-lg font-semibold text-purple-400">
             Add Fixture
           </h2>
-          <input
-            type="date"
-            name="match_date"
-            required
-            className="w-full bg-black border border-purple-700 rounded-md px-4 py-2 text-white"
-          />
+          <div className="grid sm:grid-cols-2 gap-3">
+            <input
+              type="date"
+              name="match_date"
+              required
+              className="w-full bg-black border border-purple-700 rounded-md px-4 py-2 text-white"
+            />
+            <input
+              type="time"
+              name="match_time"
+              className="w-full bg-black border border-purple-700 rounded-md px-4 py-2 text-white"
+            />
+          </div>
           <input
             type="text"
             name="opponent"
@@ -114,6 +144,7 @@ export default async function AdminFixturesPage() {
                   </p>
                   <p className="text-sm text-gray-400">
                     {new Date(f.match_date).toLocaleDateString()}
+                    {f.match_time && ` at ${f.match_time.slice(0, 5)}`}
                   </p>
                 </div>
                 <form action={deleteFixture}>
@@ -129,7 +160,7 @@ export default async function AdminFixturesPage() {
 
               <form
                 action={updateScore}
-                className="flex flex-wrap items-center gap-2 text-sm"
+                className="flex flex-wrap items-center gap-2 text-sm mb-3"
               >
                 <input type="hidden" name="id" value={f.id} />
                 <span className="text-gray-400">Retreat:</span>
@@ -153,6 +184,35 @@ export default async function AdminFixturesPage() {
                   className="bg-purple-600 hover:bg-purple-500 transition-colors px-4 py-1 rounded-md font-semibold text-xs"
                 >
                   Save Score
+                </button>
+              </form>
+
+              <form
+                action={uploadHighlight}
+                className="flex flex-wrap items-center gap-2 text-sm border-t border-purple-800 pt-3"
+              >
+                <input type="hidden" name="id" value={f.id} />
+                {f.highlight_url && (
+                  <a
+                    href={f.highlight_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-purple-400 underline text-xs"
+                  >
+                    View current clip
+                  </a>
+                )}
+                <input
+                  type="file"
+                  name="highlight"
+                  accept="video/*"
+                  className="text-xs text-gray-400"
+                />
+                <button
+                  type="submit"
+                  className="bg-purple-600 hover:bg-purple-500 transition-colors px-4 py-1 rounded-md font-semibold text-xs"
+                >
+                  Upload Highlight
                 </button>
               </form>
             </div>

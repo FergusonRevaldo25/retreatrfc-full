@@ -12,9 +12,9 @@ const primaryLinks = [
 ];
 
 const moreLinks = [
+  { href: "/players", label: "Players" },
   { href: "/news", label: "News" },
   { href: "/shop", label: "Shop" },
-
   { href: "/donations", label: "Donations" },
   { href: "/sponsors", label: "Sponsors" },
   { href: "/gallery", label: "Gallery" },
@@ -29,7 +29,6 @@ export default function Navbar() {
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLLIElement>(null);
 
-  // Close the "More" dropdown when clicking outside it
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
@@ -42,18 +41,15 @@ export default function Navbar() {
 
   return (
     <header className="relative border-b border-purple-700 sticky top-0 z-50">
-      {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: "url('/ban.jpg')" }}
       />
-      {/* Dark overlay so logo/links stay readable */}
       <div className="absolute inset-0 bg-black/80" />
 
       <nav className="relative z-10 max-w-6xl mx-auto flex items-center justify-between gap-8 px-6 py-4">
         <Logo />
 
-        {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-5 text-sm font-medium uppercase tracking-wide">
           {primaryLinks.map((link) => (
             <li key={link.href}>
@@ -66,7 +62,6 @@ export default function Navbar() {
             </li>
           ))}
 
-          {/* More dropdown */}
           <li className="relative" ref={moreRef}>
             <button
               onClick={() => setMoreOpen(!moreOpen)}
@@ -105,7 +100,6 @@ export default function Navbar() {
             )}
           </li>
 
-          {/* Register button — styled distinctly from the plain nav links */}
           <li>
             <a
               href="/register"
@@ -116,7 +110,6 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* Mobile hamburger button */}
         <button
           onClick={() => setOpen(!open)}
           className="md:hidden text-white p-2"
@@ -154,7 +147,6 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu dropdown */}
       {open && (
         <div className="relative z-10 md:hidden px-6 pb-6 border-t border-purple-800 pt-4">
           <ul className="flex flex-col gap-4 text-sm font-medium uppercase tracking-wide mb-4">
