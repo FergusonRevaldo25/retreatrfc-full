@@ -1,5 +1,5 @@
 import { neon } from "@neondatabase/serverless";
-import { put } from "@vercel/blob";
+import { put, del } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import AdminNav from "../../components/Admin/AdminNav";
 
@@ -63,6 +63,12 @@ async function deleteTeam(formData: FormData) {
   "use server";
   const id = formData.get("id") as string;
   const sql = neon(process.env.DATABASE_URL as string);
+
+  const rows = (await sql`SELECT photo_url FROM junior_teams WHERE id = ${id}`) as unknown as { photo_url: string | null }[];
+  if (rows[0]?.photo_url) {
+    await del(rows[0].photo_url);
+  }
+
   await sql`DELETE FROM junior_teams WHERE id = ${id}`;
   revalidatePath("/admin/junior-teams");
   revalidatePath("/junior");

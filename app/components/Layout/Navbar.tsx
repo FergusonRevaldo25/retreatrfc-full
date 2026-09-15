@@ -47,10 +47,13 @@ export default function Navbar() {
       />
       <div className="absolute inset-0 bg-black/80" />
 
-      <nav className="relative z-10 max-w-6xl mx-auto flex items-center justify-between gap-8 px-6 py-4">
+      {/* Full width navbar */}
+      <nav className="relative z-10 w-full flex items-center justify-between px-6 lg:px-10 py-4">
+        {/* LEFT - Logo */}
         <Logo />
 
-        <ul className="hidden md:flex items-center gap-5 text-sm font-medium uppercase tracking-wide">
+        {/* RIGHT - Navigation */}
+        <ul className="hidden md:flex items-center gap-6 text-sm font-medium uppercase tracking-wide">
           {primaryLinks.map((link) => (
             <li key={link.href}>
               <a
@@ -110,6 +113,7 @@ export default function Navbar() {
           </li>
         </ul>
 
+        {/* Mobile button */}
         <button
           onClick={() => setOpen(!open)}
           className="md:hidden text-white p-2"
