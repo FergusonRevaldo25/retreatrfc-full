@@ -24,7 +24,36 @@ const moreLinks = [
 
 const allLinks = [...primaryLinks, ...moreLinks];
 
-export default function Navbar() {
+type Fixture = {
+  id: number;
+  match_date: string | Date;
+  match_time: string | null;
+  opponent: string;
+  is_home: boolean;
+};
+
+function formatNextMatch(fixture: Fixture): string {
+  const dateOnly = String(fixture.match_date).split("T")[0];
+  const timeOnly = fixture.match_time
+    ? fixture.match_time.slice(0, 5)
+    : "15:00";
+  const date = new Date(`${dateOnly}T${timeOnly}:00`);
+
+  const dayLabel = isNaN(date.getTime())
+    ? ""
+    : date.toLocaleDateString("en-ZA", { weekday: "short" });
+
+  const vsOrAt = fixture.is_home ? "vs" : "@";
+  const homeAway = fixture.is_home ? "Home" : "Away";
+
+  return `Next Match: ${vsOrAt} ${fixture.opponent}  •  ${dayLabel} ${timeOnly}  •  ${homeAway}`;
+}
+
+export default function Navbar({
+  nextFixture,
+}: {
+  nextFixture: Fixture | null;
+}) {
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLLIElement>(null);
@@ -51,6 +80,16 @@ export default function Navbar() {
       <nav className="relative z-10 w-full flex items-center justify-between px-6 lg:px-10 py-4">
         {/* LEFT - Logo */}
         <Logo />
+
+        {/* CENTER - Next Match info (hidden on smaller screens to avoid crowding) */}
+        {/* CENTER - Next Match info (hidden on smaller screens to avoid crowding) */}
+        {nextFixture && (
+          <div className="hidden lg:flex items-center bg-white/10 backdrop-blur-sm border border-purple-500/40 rounded-full px-4 py-1.5">
+            <p className="text-xs xl:text-sm text-purple-200 font-medium tracking-wide whitespace-nowrap">
+              {formatNextMatch(nextFixture)}
+            </p>
+          </div>
+        )}
 
         {/* RIGHT - Navigation */}
         <ul className="hidden md:flex items-center gap-6 text-sm font-medium uppercase tracking-wide">
@@ -151,6 +190,17 @@ export default function Navbar() {
         </button>
       </nav>
 
+      {/* Next Match info on mobile — shown as a thin strip below the main bar */}
+      {/* Next Match info on mobile — shown as a thin strip below the main bar */}
+      {nextFixture && (
+        <div className="lg:hidden relative z-10 flex justify-center px-4 pb-3">
+          <div className="bg-white/10 backdrop-blur-sm border border-purple-500/40 rounded-full px-4 py-1.5">
+            <p className="text-xs text-purple-200 font-medium tracking-wide text-center">
+              {formatNextMatch(nextFixture)}
+            </p>
+          </div>
+        </div>
+      )}
       {open && (
         <div className="relative z-10 md:hidden px-6 pb-6 border-t border-purple-800 pt-4">
           <ul className="flex flex-col gap-4 text-sm font-medium uppercase tracking-wide mb-4">
@@ -166,6 +216,7 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+
           <a
             href="/register"
             onClick={() => setOpen(false)}
